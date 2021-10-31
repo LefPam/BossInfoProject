@@ -16,9 +16,8 @@ function App() {
                 </h3>
 
 
-                <nav className="navbar navbar-expand-sm bg-light navbar-dark">
+                <nav className="navbar navbar-expand-sm bg-light navbar-dark justify-content-center">
                     <ul classname="navbar-nav" >
-    
 
                         <NavLink className="btn btn-light btn-outline-primary" to="/home">
                             Home
