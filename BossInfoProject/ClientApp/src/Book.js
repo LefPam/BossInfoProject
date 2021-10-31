@@ -145,10 +145,10 @@ export class Book extends Component {
                         <Form.Group as={Row} controlId="roomName">
                             <Form.Label column sm="2"> Room Name: </Form.Label>
                             <Col sm="5">
-                                <Form.Control as="select" aria-label="Default select example" value={roomName} onChange={this.changeRoomName}>
+                                <Form.Select value={roomName} onChange={this.changeRoomName}>
                                     {this.state.rooms.map(room =>
                                         <option key={room.roomId}>{room.roomName}</option>)}
-                                </Form.Control>
+                                </Form.Select>
                             </Col>
                         </Form.Group>
                 
