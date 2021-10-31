@@ -56,10 +56,6 @@ from booking b
         public JsonResult Post(bookingtest rm)
         {
 
-            //string query = @"
-            //             INSERT INTO room (roomName) VALUES (@RoomName)
-            //            ";
-
             string query = @"
 
             INSERT INTO booking(customerName,arrivalDate,departureDate,roomId)
