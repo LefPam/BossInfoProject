@@ -59,10 +59,10 @@ export class Home extends Component{
                         {bookings.map(bk =>
                             <tr key={bk.bookingId}>
                                 {/*                        <td>{bk.bookingId}</td>*/}
-                                <td>{bk.customerName}</td>
-                                <td>{bk.roomid}</td>
-                                <td>{bk.arrivaldate}</td>
-                                <td>{bk.departuredate}</td>
+                                <td>{bk.CustomerName}</td>
+                                <td>{bk.RoomName}</td>
+                                <td>{bk.ArrivalDate}</td>
+                                <td>{bk.DepartureDate}</td>
                             </tr>
                         )}
 

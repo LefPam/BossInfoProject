@@ -17,7 +17,31 @@ namespace BossInfoProject.Controllers
             _configuration = configuration;
         }
 
-        // HttpGet-HttpPost-HttpPut with SqlClient Conectivity. (Bad Practice)
+        [HttpGet]
+        public IEnumerable<Room> Get()
+        {
+            using (var context = new BossInfoProjectContext())
+            {
+                return context.Rooms.ToList().OrderBy(o => o.RoomId).ToList();
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult Post(roomtest rm)
+        {
+            using (var context = new BossInfoProjectContext())
+            {
+                var Room = new Room();
+                Room.RoomName = rm.RoomName;
+                context.Rooms.Add(Room);
+                context.SaveChanges();
+                return new JsonResult("Added Successfully");
+            }
+
+        }
+
+        //HttpGet-HttpPost-HttpPut with SqlClient Conectivity. (Bad Practice)
         //[HttpGet]
         //public JsonResult Get()
         //{
@@ -104,38 +128,7 @@ namespace BossInfoProject.Controllers
 
         //}
 
-
-
-        [HttpGet]
-        public IEnumerable<Room> Get()
-        {
-            using (var context = new BossInfoProjectContext())
-            {        
-                return context.Rooms.ToList().OrderBy(o => o.RoomId).ToList();            
-            }
-
-        }
-
-        [HttpPost]
-        public JsonResult Post(roomtest rm)
-        {
-            using (var context = new BossInfoProjectContext())
-            {
-                var Room = new Room();
-                Room.RoomName = rm.RoomName;
-                context.Rooms.Add(Room);
-                context.SaveChanges();
-                return new JsonResult("Added Successfully");
-            }
-           
-        }
-
-
-
-
-
     }
-
 
 }
 
