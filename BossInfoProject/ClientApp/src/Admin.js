@@ -23,7 +23,7 @@ export class Admin extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                roomName: this.state.RoomName
+                RoomName: this.state.RoomName
             })
         })
             .then(res => res.json())

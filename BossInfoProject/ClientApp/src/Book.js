@@ -47,9 +47,9 @@ export class Book extends Component {
         //this.setState.roomId = roomtest.roomId;
 
 
-        var test = this.state.rooms.find((room) => room.roomName == e.target.value);
+        var test = this.state.rooms.find((room) => room.RoomName == e.target.value);
         this.setState({ roomName: e.target.value });
-        this.setState({ roomId: test.roomId });
+        this.setState({ roomId: test.RoomId });
 
 
     }
@@ -147,7 +147,7 @@ export class Book extends Component {
                             <Col sm="5">
                                 <Form.Select value={roomName} onChange={this.changeRoomName}>
                                     {this.state.rooms.map(room =>
-                                        <option key={room.roomId}>{room.roomName}</option>)}
+                                        <option key={room.RoomId}>{room.RoomName}</option>)}
                                 </Form.Select>
                             </Col>
                         </Form.Group>

@@ -50,9 +50,9 @@ export class Room extends Component {
                     </thead>
                     <tbody>
                         {rooms.map(rm =>
-                            <tr key={rm.roomId}>
-                                <td>{rm.roomId}</td>
-                                <td>{rm.roomName}</td>
+                            <tr key={rm.RoomId}>
+                                <td>{rm.RoomId}</td>
+                                <td>{rm.RoomName}</td>
                                
                             </tr>
                         )}
