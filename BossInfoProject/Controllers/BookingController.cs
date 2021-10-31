@@ -14,7 +14,6 @@ namespace BossInfoProject.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        //asdfasdfasdfasdf
 
         public BookingController(IConfiguration configuration)
         {
