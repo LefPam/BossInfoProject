@@ -104,7 +104,7 @@ export class Book extends Component {
                 <Col sm="10">
                 <Form>
                     <Form.Group as={Row} controlId="ArrivalDate">
-                        <Form.Label column sm="2"> Arrival Date :  </Form.Label>
+                        <Form.Label column sm="2"> From :  </Form.Label>
                              <Col sm="5">
                         <Form.Control
                             type="date"
@@ -117,7 +117,7 @@ export class Book extends Component {
                            </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="DepartureDate">
-                        <Form.Label column sm="2"> Departure Date :  </Form.Label>
+                        <Form.Label column sm="2"> Until :  </Form.Label>
                              <Col sm="5">
                         <Form.Control
                             type="date"
@@ -130,7 +130,7 @@ export class Book extends Component {
                            </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="CustomerName">
-                        <Form.Label column sm="2"> Customer Name : </Form.Label>
+                        <Form.Label column sm="2"> Name : </Form.Label>
                            <Col sm="5">
                             <Form.Control
                                 type="text"
@@ -143,7 +143,7 @@ export class Book extends Component {
                     </Form.Group>
 
                         <Form.Group as={Row} controlId="roomName">
-                            <Form.Label column sm="2"> Room Name: </Form.Label>
+                            <Form.Label column sm="2"> Choose a room: </Form.Label>
                             <Col sm="5">
                                 <Form.Select value={roomName} onChange={this.changeRoomName}>
                                     {this.state.rooms.map(room =>
