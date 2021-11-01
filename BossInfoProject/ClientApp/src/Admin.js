@@ -1,81 +1,60 @@
 ﻿import React, { Component } from 'react';
 import { variables } from './Variables.js';
 import { Button, Row, Col, Form } from 'react-bootstrap';
+import ReactDom from 'react-dom'
 
 export class Admin extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {      
-            RoomName: "",        
-        }
+        this.state = {
+            message: ''
+        };
     }
 
-    changeRoomName = (e) => {
-        this.setState({ RoomName: e.target.value });
-    }
+    onAddRoom = () => {
+   
+        let Roominfo = {
+            RoomName: this.refs.RoomName.value
+        };
 
-
-    saveRoom() {
-        if (this.state.RoomName == "") {
-            alert('Fill all the required fields.');
+        if (this.refs.RoomName.value.trim() == "") {
+            this.setState({ message: 'Room name must be filled.' });
         }
         else {
             fetch(variables.API_URL + 'room', {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    RoomName: this.state.RoomName
-                })
-            })
-                .then(res => res.json())
-                .then((result) => {
-                    alert(result);
-                }, (error) => {
-                    alert('Room Name must be unique');
-                })
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(Roominfo)
+            }).then(r => r.json()).then(res => {
+                if (res) {
+                    if (res == 'Room Already Exists') this.setState({ message: 'Room Already Exists.' });
+                    else {
+                        this.setState({ message: 'Room Saved Successfully.' });
+                        this.refs.RoomName.value = "";
+
+                    }
+
+                }
+            });
         }
     }
 
-
+    changeRoomName = (e) => {
+        this.setState({ message: '' });
+    }
 
     render() {
 
-        const {     
-            RoomName
-        } = this.state;
+        return (
 
-        return (      
-            <div className="container">
-                <Col sm="10">
-                    <Form>
-                        <Form.Group as={Row} controlId="RoomName">
-                            <Form.Label column sm="2"> Room : </Form.Label>
-                            <Col sm="5">
-                                <Form.Control
-                                    type="text"
-                                    name="RoomName"
-                                    required
-                                    value={RoomName}
-                                    onChange={this.changeRoomName}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} controlId="AddRoom" >
-                            <Col sm="5">
-                                <Button variant="primary" type="submit" onClick={() => this.saveRoom()}>
-                                    Add Room
-                                </Button>
-                            </Col>
-                        </Form.Group>
-
-
-                    </Form>
-                </Col>
-
+        
+            <div>
+                <p>
+                    <label>RoomName : <input required onChange={this.changeRoomName} type="text" ref="RoomName"></input></label>
+                </p>
+                <button variant="outline-primary" onClick={this.onAddRoom}>Add Room</button>
+                <p>{this.state.message}</p>
             </div>
 
         )
@@ -83,3 +62,7 @@ export class Admin extends Component {
 
 
 }
+
+const element = <Admin></Admin>
+
+ReactDom.render(element, document.getElementById("root"));
