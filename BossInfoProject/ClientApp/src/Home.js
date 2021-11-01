@@ -10,15 +10,38 @@ export class Home extends Component{
 
 
         this.state = {
-            bookings: []
+            bookings: [],
+            RoomFilter:"",
+            bookingsWithoutFilter:[]
         }
+    }
+
+    FilterFn() {
+
+        var RoomFilter = this.state.RoomFilter;
+
+        var filteredData = this.state.bookingsWithoutFilter.filter(
+            function (el) {
+                return el.RoomName.toString().toLowerCase().includes(
+                    RoomFilter.toString().trim().toLowerCase()
+                )
+            }
+        );
+
+        this.setState({ bookings: filteredData });
+
+    }
+
+    changeRoomNameFilter = (e) => {
+        this.state.RoomFilter = e.target.value;
+        this.FilterFn();
     }
 
     refreshList() {
         fetch(variables.API_URL + 'booking')
             .then(response => response.json())
             .then(data => {
-                this.setState({ bookings: data });
+                this.setState({ bookings:data,bookingsWithoutFilter:data });
             })
     }
 
@@ -37,13 +60,13 @@ export class Home extends Component{
                 <table className="table table-striped" >
                     <thead>
                         <tr>
-                            {/*<th>*/}
-                            {/*    BookingID*/}
-                            {/*</th>*/}
                             <th>
                                 Customer Name
                             </th>
                             <th>
+                                <input className="form-control m-2"
+                                    onChange={this.changeRoomNameFilter}
+                                    placeholder="Filter" />
                                 Room Name
                             </th>
                             <th>
