@@ -35,8 +35,6 @@ export class Book extends Component {
         var tmpRoomObj = this.state.rooms.find((room) => room.RoomName == e.target.value);
         this.setState({ roomName: e.target.value });
         this.setState({ roomId: tmpRoomObj.RoomId });
-
-
     }
 
 
@@ -49,6 +47,12 @@ export class Book extends Component {
     }
 
     addBookingClick() {
+
+        if (this.state.customerName == "" || this.state.arrivalDate == "" || this.state.departureDate == "" || this.state.roomId == "") {
+            alert('Fill all the required fields.');
+        }
+        else { 
+
         fetch(variables.API_URL + 'booking', {
             method: 'POST',
             headers: {
@@ -68,6 +72,7 @@ export class Book extends Component {
             }, (error) => {
                 alert('Failed.');
             })
+        }
     }
 
 
