@@ -17,22 +17,27 @@ export class Admin extends Component {
 
 
     saveRoom() {
-        fetch(variables.API_URL + 'room', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                RoomName: this.state.RoomName
+        if (this.state.RoomName == "") {
+            alert('Fill all the required fields.');
+        }
+        else {
+            fetch(variables.API_URL + 'room', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    RoomName: this.state.RoomName
+                })
             })
-        })
-            .then(res => res.json())
-            .then((result) => {
-                alert(result);
-            }, (error) => {
-                alert('Failed. Be sure that there is no other room with the same name.');
-            })
+                .then(res => res.json())
+                .then((result) => {
+                    alert(result);
+                }, (error) => {
+                    alert('Room Name must be unique');
+                })
+        }
     }
 
 

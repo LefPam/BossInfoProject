@@ -41,10 +41,17 @@ namespace BossInfoProject.Controllers
                 booking.ArrivalDate = Convert.ToDateTime(bk.ArrivalDate);
                 booking.DepartureDate = Convert.ToDateTime(bk.DepartureDate);
                 booking.RoomId = bk.RoomId;
-
                 context.Bookings.Add(booking);
-                context.SaveChanges();
-                return new JsonResult("Added Successfully");
+                try
+                {
+                    context.SaveChanges();
+                    return new JsonResult("Added Successfully");
+                }
+                catch (Exception ex)
+                {
+                    return new JsonResult("Room Already Exists");
+                }
+             
             }
 
         }
