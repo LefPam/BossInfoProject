@@ -1,40 +1,22 @@
 ﻿import React, { Component } from 'react';
 import { Button, Row, Col, Form } from 'react-bootstrap';
 import { variables } from './Variables.js';
+import ReactDom from 'react-dom'
 
 export class Book extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             rooms: [],
-            customerName: "",
-            arrivalDate: "",
-            departureDate: "",
-            roomName: "",
-            roomId: "",
-            roomtest:""
-
-        }
-
+            // tmpRoomId: "",
+            message: ''
+        };
     }
 
-    changeArrivalDate = (e) => {
-        this.setState({ arrivalDate: e.target.value });
-    }
-    changeDepartureDate = (e) => {
-        this.setState({ departureDate: e.target.value });
-    }
-
-    changeCustomerName = (e) => {
-        this.setState({ customerName: e.target.value });
-    }
-
-    changeRoomName = (e) => {
-
-        var tmpRoomObj = this.state.rooms.find((room) => room.RoomName == e.target.value);
-        this.setState({ roomName: e.target.value });
-        this.setState({ roomId: tmpRoomObj.RoomId });
+    resetMessageText = (e) => {
+        this.setState({ message: '' });
     }
 
 
@@ -48,116 +30,69 @@ export class Book extends Component {
 
     addBookingClick() {
 
-        if (this.state.customerName == "" || this.state.arrivalDate == "" || this.state.departureDate == "" || this.state.roomId == "") {
-            alert('Fill all the required fields.');
-        }
-        else { 
+        var tmpRoomObj = this.state.rooms.find((room) => room.RoomName == this.refs.RoomId.value);
 
-        fetch(variables.API_URL + 'booking', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                customerName: this.state.customerName,
-                arrivaldate: this.state.arrivalDate,
-                departuredate: this.state.departureDate,
-                roomid: parseInt(this.state.roomId, 10)
-            })
-        })
-            .then(res => res.json())
-            .then((result) => {
-                alert(result);
-            }, (error) => {
-                alert('Failed.');
-            })
+        let BookInfo = {
+            ArrivalDate: this.refs.ArrivalDate.value,
+            DepartureDate: this.refs.DepartureDate.value,
+            CustomerName: this.refs.CustomerName.value,
+            RoomId: tmpRoomObj.RoomId
+        };
+
+        if (this.refs.ArrivalDate.value.trim() == "" || this.refs.DepartureDate.value.trim() == "" || this.refs.CustomerName.value.trim() == "" || this.refs.RoomId.value.trim() == "") {
+            this.setState({ message: 'You must fill all the information in order to complete the booking.' });
+        }
+        else {
+
+            fetch(variables.API_URL + 'booking', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(BookInfo)
+            }).then(r => r.json()).then(res => {
+                if (res) {
+                    this.setState({ message: 'Booking Saved Successfully.' });
+                    this.refs.ArrivalDate.value = "";
+                    this.refs.DepartureDate.value = "";
+                    this.refs.CustomerName.value = "";
+                }
+                else {
+                    this.setState({ message: 'Failed to save Booking.' });
+                }
+            });
         }
     }
 
-
     render() {
-        const {
-            arrivalDate,
-            departureDate,
-            roomName,
-            roomId,
-            customerName,
-            rooms,
-            roomtest
-        } = this.state;
+ 
         return (
-            <div className="container">
-             
-                <Col sm="10">
-                <Form>
-                    <Form.Group as={Row} controlId="ArrivalDate">
-                        <Form.Label column sm="2"> From :  </Form.Label>
-                             <Col sm="5">
-                        <Form.Control
-                           type="date"
-                            name="ArrivalDate"
-                            required
-                            placeholder="Arrival Date"
-                            value={arrivalDate}
-                            onChange={this.changeArrivalDate}
-                        />
-                           </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="DepartureDate">
-                        <Form.Label column sm="2"> Until :  </Form.Label>
-                             <Col sm="5">
-                        <Form.Control
-                            type="date"
-                            name="DepartureDate"
-                            required
-                            placeholder="Departure Date"
-                            value={departureDate}
-                            onChange={this.changeDepartureDate}
-                        />
-                           </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="CustomerName">
-                        <Form.Label column sm="2"> Name : </Form.Label>
-                           <Col sm="5">
-                            <Form.Control
-                                type="text"
-                                name="CustomerName"
-                                    required
-                                    value={customerName}
-                                    onChange={this.changeCustomerName}
-                                 />
-                        </Col>
-                    </Form.Group>
 
-                        <Form.Group as={Row} controlId="roomName">
-                            <Form.Label column sm="2"> Choose a room: </Form.Label>
-                            <Col sm="5">
-                                <Form.Select value={roomName} onChange={this.changeRoomName}>
-                                    {this.state.rooms.map(room =>
-                                        <option key={room.RoomId}>{room.RoomName}</option>)}
-                                </Form.Select>
-                            </Col>
-                        </Form.Group>
-                
-                   
-                    <Form.Group as={Row} controlId="AddBooking" >
-                        <Col sm="5">
-                        <Button variant="primary" type="submit" onClick={() => this.addBookingClick()}>
-                           
-                                Add Booking
-                           
-                            </Button>
-                        </Col>
-                        </Form.Group>
-                      
-              
-                    </Form>
-                    </Col>
-              
+            <div>
+                <p>
+                    <label>From : <input onChange={this.resetMessageText} style={{ width: '374px' }} type="date" ref="ArrivalDate"></input></label>
+                </p>
+                <p>
+                    <label>Until : <input onChange={this.resetMessageText} style={{ width: '378px' }}  type="date" ref="DepartureDate"></input></label>
+                </p>
+                <p>
+                    <label>Customer Name : <input onChange={this.resetMessageText} style={{ width: '296px' }} type="text"  ref="CustomerName"></input></label>
+                </p>
+                <p>
+                    <label>Room Name : <select onChange={this.resetMessageText} style={{ width: '322px' }} type="select" ref="RoomId" >
+                            {this.state.rooms.map(room =><option id={room.RoomId}>{room.RoomName}</option>)}
+                        </select>
+
+                    </label>
+                </p>
+                <button onClick={() => this.addBookingClick()} variant="outline-primary"> Add Booking </button>
+                <p>{this.state.message}</p>
             </div>
+
+
         )
     }
 
 
 }
+
+const element = <Book></Book>
+ReactDom.render(element, document.getElementById("root"));

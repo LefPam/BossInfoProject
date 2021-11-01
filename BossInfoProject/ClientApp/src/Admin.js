@@ -40,18 +40,16 @@ export class Admin extends Component {
         }
     }
 
-    changeRoomName = (e) => {
+    resetMessageText = (e) => {
         this.setState({ message: '' });
     }
 
     render() {
 
-        return (
-
-        
+        return (   
             <div>
                 <p>
-                    <label>RoomName : <input required onChange={this.changeRoomName} type="text" ref="RoomName"></input></label>
+                    <label>RoomName : <input required onChange={this.resetMessageText} type="text" ref="RoomName"></input></label>
                 </p>
                 <button variant="outline-primary" onClick={this.onAddRoom}>Add Room</button>
                 <p>{this.state.message}</p>
@@ -60,9 +58,7 @@ export class Admin extends Component {
         )
     }
 
-
 }
 
 const element = <Admin></Admin>
-
 ReactDom.render(element, document.getElementById("root"));

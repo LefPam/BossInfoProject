@@ -35,9 +35,9 @@ function App() {
                             Admin
                         </NavLink>
 
-                        <NavLink className="btn btn-light btn-outline-primary" to="/room">
-                            Rooms
-                        </NavLink>
+                        {/*<NavLink className="btn btn-light btn-outline-primary" to="/room">*/}
+                        {/*    Rooms*/}
+                        {/*</NavLink>*/}
 
                     </ul>
                 </nav>
