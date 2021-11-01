@@ -35,8 +35,17 @@ namespace BossInfoProject.Controllers
                 var Room = new Room();
                 Room.RoomName = rm.RoomName;
                 context.Rooms.Add(Room);
-                context.SaveChanges();
-                return new JsonResult("Added Successfully");
+                try
+                {
+                    context.SaveChanges();
+                    return new JsonResult("Added Successfully");
+                }
+                catch (Exception ex)
+                {
+                    return new JsonResult("Room Already Exists");
+                }
+                
+                
             }
 
         }

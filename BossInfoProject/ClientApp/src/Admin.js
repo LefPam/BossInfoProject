@@ -30,7 +30,6 @@ export class Admin extends Component {
             .then(res => res.json())
             .then((result) => {
                 alert(result);
-                //this.refreshList();
             }, (error) => {
                 alert('Failed. Be sure that there is no other room with the same name.');
             })
