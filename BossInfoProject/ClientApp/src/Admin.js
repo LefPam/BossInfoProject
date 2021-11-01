@@ -28,7 +28,7 @@ export class Admin extends Component {
                 body: JSON.stringify(Roominfo)
             }).then(r => r.json()).then(res => {
                 if (res) {
-                    if (res == 'Room Already Exists') this.setState({ message: 'Room Already Exists.' });
+                    if (res == 'Failed') this.setState({ message: 'Room Already Exists.' });
                     else {
                         this.setState({ message: 'Room Saved Successfully.' });
                         this.refs.RoomName.value = "";

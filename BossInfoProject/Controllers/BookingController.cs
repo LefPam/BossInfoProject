@@ -51,7 +51,7 @@ namespace BossInfoProject.Controllers
                 {
                     return new JsonResult("Room Already Exists");
                 }
-             
+
             }
 
         }
@@ -59,7 +59,7 @@ namespace BossInfoProject.Controllers
         {
             CultureInfo culture = new CultureInfo("pt-BR");
             var Modifiedlist = new List<ModifiedBooking>();
-            
+
             foreach (Booking t in tmp)
             {
                 var NewBooking = new ModifiedBooking();
@@ -123,10 +123,13 @@ namespace BossInfoProject.Controllers
         //    DataTable table = new DataTable();
         //    string sqlDataSource = _configuration.GetConnectionString("SqlConn");
         //    SqlDataReader myReader;
+
+        //    try
+        //    {
         //    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
         //    {
-
         //        myCon.Open();
+
         //        using (SqlCommand myCommand = new SqlCommand(query, myCon))
         //        {
         //            myCommand.Parameters.AddWithValue("@CustomerName", rm.CustomerName);
@@ -139,38 +142,13 @@ namespace BossInfoProject.Controllers
         //            myCon.Close();
         //        }
         //    }
-
-        //    return new JsonResult("Added Successfully");
-
-        //}
-
-        //[HttpPut]
-        //public JsonResult Put(bookingtest rm)
-        //{
-        //    string query = @"
-        //                 Update room set roomname= @RoomName
-        //                 where roomId=@RoomId
-        //                ";
-
-        //    DataTable table = new DataTable();
-        //    string sqlDataSource = _configuration.GetConnectionString("SqlConn");
-        //    SqlDataReader myReader;
-        //    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+        //        return new JsonResult("Success");
+        //    }
+        //    catch (Exception)
         //    {
 
-        //        myCon.Open();
-        //        using (SqlCommand myCommand = new SqlCommand(query, myCon))
-        //        {
-        //            myCommand.Parameters.AddWithValue("@RoomId", rm.RoomId);
-        //            myCommand.Parameters.AddWithValue("@RoomName", rm.RoomName);
-        //            myReader = myCommand.ExecuteReader();
-        //            table.Load(myReader);
-        //            myReader.Close();
-        //            myCon.Close();
-        //        }
+        //        return new JsonResult("Failed");
         //    }
-
-        //    return new JsonResult("Updated Successfully");
 
         //}
 
