@@ -16,9 +16,7 @@ export class Book extends Component {
             roomtest:""
 
         }
-           
-        //this.handleSubmit = this.handleSubmit.bind(this);
-        //this.handleFileSelected = this.handleFileSelected.bind(this);
+
     }
 
     changeArrivalDate = (e) => {
@@ -33,23 +31,10 @@ export class Book extends Component {
     }
 
     changeRoomName = (e) => {
-        //this.setState({ roomName: e.target.value });
 
-
-
-        //this.setState({ roomId: e.target.option.id });
-
-        //this.state.roomId = "2";
-       
-        //this.setState.roomtest = this.state.rooms.find((room) => room.roomName == e.target.value);
-        
-        //alert(roomtest.roomId)
-        //this.setState.roomId = roomtest.roomId;
-
-
-        var test = this.state.rooms.find((room) => room.RoomName == e.target.value);
+        var tmpRoomObj = this.state.rooms.find((room) => room.RoomName == e.target.value);
         this.setState({ roomName: e.target.value });
-        this.setState({ roomId: test.RoomId });
+        this.setState({ roomId: tmpRoomObj.RoomId });
 
 
     }
@@ -74,16 +59,14 @@ export class Book extends Component {
                 customerName: this.state.customerName,
                 arrivaldate: this.state.arrivalDate,
                 departuredate: this.state.departureDate,
-                //roomid: 2
                 roomid: parseInt(this.state.roomId, 10)
             })
         })
             .then(res => res.json())
             .then((result) => {
                 alert(result);
-                //this.refreshList();
             }, (error) => {
-                alert('Failed. Be sure that there is no other room with the same name.');
+                alert('Failed.');
             })
     }
 
@@ -107,7 +90,7 @@ export class Book extends Component {
                         <Form.Label column sm="2"> From :  </Form.Label>
                              <Col sm="5">
                         <Form.Control
-                            type="date"
+                           type="date"
                             name="ArrivalDate"
                             required
                             placeholder="Arrival Date"
